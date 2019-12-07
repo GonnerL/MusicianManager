@@ -8,6 +8,7 @@ import android.widget.EditText;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.SetOptions;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -34,11 +35,13 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View view) {
         if(mAuth.getCurrentUser() != null){
+            String postId = mStore.collection(FirebaseID.post).document().getId();
             Map<String, Object> data = new HashMap<>();
             data.put(FirebaseID.documentID, mAuth.getCurrentUser().getUid());
-            data.put(FirebaseID., mTitle.getText().toString());
-            data.put(FirebaseID., mContents.getText().toString());
-            mStore.collection(FirebaseID.).document(mTitle.getText().toString()).set();
+            data.put(FirebaseID.title, mTitle.getText().toString());
+            data.put(FirebaseID.contents, mContents.getText().toString());
+            mStore.collection(FirebaseID.post).document(postId).set(data, SetOptions.merge());
+            finish();
         }
     }
 }

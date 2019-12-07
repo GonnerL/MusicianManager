@@ -14,6 +14,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.SetOptions;
 
@@ -24,7 +25,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
     private EditText mEmailText, mPasswordText;
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
-    private FirebaseFirestore mStore = FirebaseFirestore.getInstance();
+    private FirebaseDatabase mdb = FirebaseDatabase.getInstance();
 
 
     @Override
@@ -36,7 +37,6 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         mPasswordText = findViewById(R.id.signup_password);
 
         findViewById(R.id.signup_signup).setOnClickListener(this);
-
     }
 
     @Override
