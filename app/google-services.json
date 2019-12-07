@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1080557633376",
+    "firebase_url": "https://musicianmanager-bdc5e.firebaseio.com",
+    "project_id": "musicianmanager-bdc5e",
+    "storage_bucket": "musicianmanager-bdc5e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1080557633376:android:1f9000b45d923ca495e805",
+        "android_client_info": {
+          "package_name": "com.example.musicianmanager"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1080557633376-l072mder3fkq02arattphr2iv6vqvpgk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.musicianmanager",
+            "certificate_hash": "b86e21a38725f910f2df27e4de35180b58625274"
+          }
+        },
+        {
+          "client_id": "1080557633376-2bfjlf255d2pl1j7r22vv8piievs2ms4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAkOmElN4zKfeiq1fwWkXefX0yQY0QwU-U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1080557633376-2bfjlf255d2pl1j7r22vv8piievs2ms4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
