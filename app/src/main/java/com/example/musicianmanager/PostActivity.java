@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.SetOptions;
 
@@ -40,7 +41,8 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
             data.put(FirebaseID.documentID, mAuth.getCurrentUser().getUid());
             data.put(FirebaseID.title, mTitle.getText().toString());
             data.put(FirebaseID.contents, mContents.getText().toString());
-            mStore.collection(FirebaseID.post).document(postId).set(data, SetOptions.merge());
+            data.put(FirebaseID.timestamp, FieldValue.serverTimestamp());
+            mStore.collection(FirebaseID.post).document(postId).set(data);
             finish();
         }
     }
