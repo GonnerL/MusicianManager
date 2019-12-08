@@ -1,15 +1,31 @@
 package com.example.musicianmanager.models;
 
+import com.google.firebase.firestore.ServerTimestamp;
+
+import java.util.Date;
+
 public class Post {
 
     private String documentId;
     private String title;
     private String contents;
+    private String nickname;
+    @ServerTimestamp
+    private Date date;
 
-    public Post(String documentId, String title, String contents) {
+    public Post(String documentId, String nickname, String title, String contents) {
         this.documentId = documentId;
+        this.nickname = nickname;
         this.title = title;
         this.contents = contents;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
 
     public String getDocumentId() {
@@ -42,6 +58,8 @@ public class Post {
                 "documentId='" + documentId + '\'' +
                 ", title='" + title + '\'' +
                 ", contents='" + contents + '\'' +
+                ", nickname='" + nickname + '\'' +
+                ", date=" + date +
                 '}';
     }
 }

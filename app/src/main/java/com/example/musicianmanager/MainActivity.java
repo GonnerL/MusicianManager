@@ -2,6 +2,8 @@ package com.example.musicianmanager;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
+
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
@@ -12,7 +14,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 
 import com.example.musicianmanager.adapters.PostAdapter;
 import com.example.musicianmanager.fragment.EvaluationFragment;
@@ -26,7 +31,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.core.QueryListener;
 
@@ -54,6 +63,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
 
         mPostRecyclerView = findViewById(R.id.main_recyclerview);
+
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.mainactivity_bottomnavigationview);
         toolbar = findViewById(R.id.toolbar);
 
@@ -92,6 +102,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 return true;
             }
         });
+        findViewById(R.id.main_post_edit).setOnClickListener(this);
+        findViewById(R.id.main_logout).setOnClickListener(this);
+
     }
 
     @Override
@@ -99,33 +112,68 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onStart();
         mDatas = new ArrayList<>();
         mStore.collection(FirebaseID.post)
+                .orderBy(FirebaseID.timestamp, Query.Direction.DESCENDING)
                 .get()
-                .addOnCompleteListener(this, new OnCompleteListener<QuerySnapshot>(){
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if(task.isSuccessful()){
-                            if(task.getResult()!=null){
-                                System.out.println("in");
-                                for(DocumentSnapshot snap : task.getResult()){
-                                    Map<String, Object> shot = snap.getData();
-                                    String documentId = String.valueOf(shot.get(FirebaseID.documentID));
-                                    String title = String.valueOf(shot.get(FirebaseID.title));
-                                    String contents = String.valueOf(shot.get(FirebaseID.contents));
-                                    Post data = new Post(documentId, title, contents);
-                                    mDatas.add(data);
-                                }
-
-                                mAdapter = new PostAdapter(mDatas);
-                                mPostRecyclerView.setAdapter(mAdapter);
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Log.d("TAG", document.getId() + " => " + document.getData());
+                                Map<String, Object> shot = document.getData();
+                                String documentId = String.valueOf(shot.get(FirebaseID.documentID));
+                                String name = String.valueOf(shot.get(FirebaseID.name));
+                                String title = String.valueOf(shot.get(FirebaseID.title));
+                                String contents = String.valueOf(shot.get(FirebaseID.contents));
+                                Post data = new Post(documentId, name, title, contents);
+                                System.out.println(data);
+                                mDatas.add(data);
                             }
+                            mAdapter = new PostAdapter(mDatas);
+                            mPostRecyclerView.setAdapter(mAdapter);
+                        } else {
+                            Log.w("TAG", "Error getting documents.", task.getException());
+                        }
                     }
-                }
-        });
+                });
+                /*.orderBy(FirebaseID.timestamp, Query.Direction.DESCENDING)
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+                        if(queryDocumentSnapshots != null){
+                            mDatas.clear();
+                            for(DocumentSnapshot snap : queryDocumentSnapshots.getDocuments()){
+                                Map<String, Object> shot = snap.getData();
+                                String documentId = String.valueOf(shot.get(FirebaseID.documentID));
+                                String nickname = String.valueOf(shot.get(FirebaseID.nickname));
+                                String title = String.valueOf(shot.get(FirebaseID.title));
+                                String contents = String.valueOf(shot.get(FirebaseID.contents));
+                                Post data = new Post(documentId, nickname, title, contents);
+                                mDatas.add(data);
+                            }
+                            mAdapter = new PostAdapter(mDatas);
+                            mPostRecyclerView.setAdapter(mAdapter);
+                        }
+                    }
+                });*/
     }
 
     @Override
     public void onClick(View view) {
-        startActivity(new Intent(MainActivity.this, PostActivity.class));
+        switch (view.getId()) {
+            case R.id.main_post_edit:
+                startActivity(new Intent(MainActivity.this, PostActivity.class));
+                break;
+            case R.id.main_logout:
+                signOut();
+                break;
+
+        }
+    }
+
+    public void signOut() {
+        FirebaseAuth.getInstance().signOut();
+        startActivity(new Intent(MainActivity.this, LoginActivity.class));
     }
 
     private void replaceFragment(Fragment fragment) {
