@@ -6,8 +6,6 @@ import java.util.Date;
 
 public class Post {
 
-
-
     private String documentId;
     private String title;
     private String contents;

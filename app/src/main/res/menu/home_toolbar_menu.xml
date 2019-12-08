@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <item
+        android:id="@+id/home_toolbar_account"
+        app:showAsAction="always"
+        android:icon="@drawable/if_profile_1954535"
+        android:title="My Page"></item>
+
+</menu>
