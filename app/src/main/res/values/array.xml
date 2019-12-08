@@ -5,4 +5,17 @@
         <item>Performer</item>
     </string-array>
 
+    <string-array name="eventType">
+        <item>--종류--</item>
+        <item>결혼식</item>
+        <item>파티 및 기념식</item>
+        <item>연주회</item>
+        <item>기업행사</item>
+        <item>쇼케이스</item>
+        <item>야유회</item>
+        <item>동창회</item>
+        <item>생일파티</item>
+        <item>기타</item>
+    </string-array>
+
 </resources>
