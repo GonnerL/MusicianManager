@@ -14,5 +14,6 @@ public class FirebaseID {
     public static String timestamp = "timestamp";
     public static String name = "name";
     public static String status = "status";
+    public static String date = "date";
 
 }

@@ -10,14 +10,25 @@ public class Post {
     private String title;
     private String contents;
     private String nickname;
-    @ServerTimestamp
-    private Date date;
+    private String date;
 
-    public Post(String documentId, String nickname, String title, String contents) {
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    @ServerTimestamp
+    private Date serverDate;
+
+    public Post(String documentId, String nickname, String title, String contents, String date) {
         this.documentId = documentId;
         this.nickname = nickname;
         this.title = title;
         this.contents = contents;
+        this.date = date;
     }
 
     public String getNickname() {
@@ -59,7 +70,7 @@ public class Post {
                 ", title='" + title + '\'' +
                 ", contents='" + contents + '\'' +
                 ", nickname='" + nickname + '\'' +
-                ", date=" + date +
+                ", date='" + date + '\'' +
                 '}';
     }
 }

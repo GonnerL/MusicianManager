@@ -29,5 +29,18 @@
         android:textSize="16sp"
         tools:text="contents/"></TextView>
 
+    <TextView
+        android:id="@+id/item_post_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="14dp"
+        android:layout_marginEnd="18dp"
+        android:textSize="16sp"
+        tools:text="date/">
+
+    </TextView>
+
 
 </RelativeLayout>

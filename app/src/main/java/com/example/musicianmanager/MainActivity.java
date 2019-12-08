@@ -125,7 +125,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 String name = String.valueOf(shot.get(FirebaseID.name));
                                 String title = String.valueOf(shot.get(FirebaseID.title));
                                 String contents = String.valueOf(shot.get(FirebaseID.contents));
-                                Post data = new Post(documentId, name, title, contents);
+                                String date = String.valueOf(shot.get(FirebaseID.date));
+                                Post data = new Post(documentId, name, title, contents, date);
                                 System.out.println(data);
                                 mDatas.add(data);
                             }
@@ -136,26 +137,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         }
                     }
                 });
-                /*.orderBy(FirebaseID.timestamp, Query.Direction.DESCENDING)
-                .addSnapshotListener(new EventListener<QuerySnapshot>() {
-                    @Override
-                    public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
-                        if(queryDocumentSnapshots != null){
-                            mDatas.clear();
-                            for(DocumentSnapshot snap : queryDocumentSnapshots.getDocuments()){
-                                Map<String, Object> shot = snap.getData();
-                                String documentId = String.valueOf(shot.get(FirebaseID.documentID));
-                                String nickname = String.valueOf(shot.get(FirebaseID.nickname));
-                                String title = String.valueOf(shot.get(FirebaseID.title));
-                                String contents = String.valueOf(shot.get(FirebaseID.contents));
-                                Post data = new Post(documentId, nickname, title, contents);
-                                mDatas.add(data);
-                            }
-                            mAdapter = new PostAdapter(mDatas);
-                            mPostRecyclerView.setAdapter(mAdapter);
-                        }
-                    }
-                });*/
+
     }
 
     @Override

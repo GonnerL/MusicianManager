@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -32,15 +33,70 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
     private DatePickerDialog.OnDateSetListener callbackMethod;
     private TimePickerDialog.OnTimeSetListener callbackMethod2;
 
-    private String name;
+    private String date;
     private TextView textView_Date, textView_time, textView_eventType;
     private EditText mTitle, mContents;
     private Spinner spinner_eventType;
+
+    ArrayAdapter<CharSequence> adspin1, adspin2;
+    String choice_do="";
+    String choice_si="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post);
+
+        final Spinner spinDo = (Spinner)findViewById(R.id.spinner_location_do);
+        final Spinner spinSi = (Spinner)findViewById(R.id.spinner_location_gu);
+
+        adspin1 = ArrayAdapter.createFromResource(this, R.array.location_do,android.R.layout.simple_spinner_dropdown_item);
+        adspin1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinDo.setAdapter(adspin1);
+        spinDo.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                if(adspin1.getItem(i).equals("서울특별시")){
+                    choice_do = "서울특별시";
+                    adspin2 = ArrayAdapter.createFromResource(PostActivity.this, R.array.location_seoul, android.R.layout.simple_spinner_dropdown_item);
+                    adspin2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    spinSi.setAdapter(adspin2);
+                    spinSi.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
+                        @Override
+                        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                            choice_si = adspin2.getItem(i).toString();
+                        }
+
+                        @Override
+                        public void onNothingSelected(AdapterView<?> adapterView) {
+
+                        }
+                    });
+                }
+                else if(adspin1.getItem(i).equals("경기도")){
+                    choice_do = "경기도";
+                    adspin2 = ArrayAdapter.createFromResource(PostActivity.this, R.array.location_gyunggi, android.R.layout.simple_spinner_dropdown_item);
+                    adspin2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    spinSi.setAdapter(adspin2);
+                    spinSi.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                            choice_si = adspin2.getItem(i).toString();
+                        }
+
+                        @Override
+                        public void onNothingSelected(AdapterView<?> adapterView) {
+
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
 
         mTitle = findViewById(R.id.post_title_edit);
         mContents = findViewById(R.id.post_content_edit);
@@ -109,9 +165,11 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
             Map<String, Object> data = new HashMap<>();
             data.put(FirebaseID.documentID, mAuth.getCurrentUser().getUid());
             data.put(FirebaseID.title, mTitle.getText().toString());
-            data.put(FirebaseID.name, name);
             data.put(FirebaseID.contents, mContents.getText().toString());
             data.put(FirebaseID.timestamp, FieldValue.serverTimestamp());
+            date = textView_Date.getText().toString();
+            date = date.concat(" " + textView_time.getText().toString());
+            data.put(FirebaseID.date, date);
             System.out.println(data);
             mStore.collection("post")
                     .add(data)
