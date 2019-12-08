@@ -16,12 +16,19 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
+import com.example.musicianmanager.adapters.PostAdapter;
+import com.example.musicianmanager.models.Post;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -34,7 +41,7 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
     private TimePickerDialog.OnTimeSetListener callbackMethod2;
 
     private String date;
-    private TextView textView_Date, textView_time, textView_eventType;
+    private TextView textView_Date, textView_time, textView_eventType, textView_location, post_time, textView_detail_location;
     private EditText mTitle, mContents;
     private Spinner spinner_eventType;
 
@@ -46,6 +53,14 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post);
+
+        mTitle = findViewById(R.id.post_title_edit);
+        mContents = findViewById(R.id.post_content_edit);
+        spinner_eventType = findViewById(R.id.spinner_eventType);
+        textView_eventType = findViewById(R.id.textView_eventType);
+        textView_location = findViewById(R.id.post_location);
+        textView_detail_location = findViewById(R.id.post_detail_location);
+        post_time = findViewById(R.id.post_time);
 
         final Spinner spinDo = (Spinner)findViewById(R.id.spinner_location_do);
         final Spinner spinSi = (Spinner)findViewById(R.id.spinner_location_gu);
@@ -60,11 +75,14 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
                     choice_do = "서울특별시";
                     adspin2 = ArrayAdapter.createFromResource(PostActivity.this, R.array.location_seoul, android.R.layout.simple_spinner_dropdown_item);
                     adspin2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    textView_location.setText("서울 ");
                     spinSi.setAdapter(adspin2);
                     spinSi.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
                         @Override
                         public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                             choice_si = adspin2.getItem(i).toString();
+                            String addedLocation = "서울 ".concat(choice_si);
+                            textView_location.setText(addedLocation);
                         }
 
                         @Override
@@ -77,11 +95,14 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
                     choice_do = "경기도";
                     adspin2 = ArrayAdapter.createFromResource(PostActivity.this, R.array.location_gyunggi, android.R.layout.simple_spinner_dropdown_item);
                     adspin2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    textView_location.setText("경기도 ");
                     spinSi.setAdapter(adspin2);
                     spinSi.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
                         public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                             choice_si = adspin2.getItem(i).toString();
+                            String added_location = "경기도 ".concat(choice_si);
+                            textView_location.setText(added_location);
                         }
 
                         @Override
@@ -98,10 +119,6 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
 
-        mTitle = findViewById(R.id.post_title_edit);
-        mContents = findViewById(R.id.post_content_edit);
-        spinner_eventType = findViewById(R.id.spinner_eventType);
-        textView_eventType = findViewById(R.id.textView_eventType);
 
         findViewById(R.id.post_save_button).setOnClickListener(this);
 
@@ -163,13 +180,18 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View view) {
         if(mAuth.getCurrentUser() != null) {
             Map<String, Object> data = new HashMap<>();
-            data.put(FirebaseID.documentID, mAuth.getCurrentUser().getUid());
-            data.put(FirebaseID.title, mTitle.getText().toString());
-            data.put(FirebaseID.contents, mContents.getText().toString());
+            data.put(FirebaseID.musicEventId, mAuth.getCurrentUser().getUid()); //
+            data.put(FirebaseID.title, mTitle.getText().toString()); //
+            data.put(FirebaseID.contents, mContents.getText().toString()); //
             data.put(FirebaseID.timestamp, FieldValue.serverTimestamp());
+            data.put(FirebaseID.location, textView_location.getText().toString()); //
+            data.put(FirebaseID.eventType,textView_eventType.getText().toString()); //
+            data.put(FirebaseID.hostID, getHostId()); //
+            data.put(FirebaseID.time, post_time.getText().toString()); //
+            data.put(FirebaseID.matchedStatus,false); //
             date = textView_Date.getText().toString();
             date = date.concat(" " + textView_time.getText().toString());
-            data.put(FirebaseID.date, date);
+            data.put(FirebaseID.date, date); //
             System.out.println(data);
             mStore.collection("post")
                     .add(data)
@@ -188,4 +210,37 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
             finish();
         }
     }
+
+    public String getHostId(){
+        String  hostID = "EK";
+        mStore.collection(FirebaseID.user)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Log.d("TAG", document.getId() + " => " + document.getData());
+                                Map<String, Object> shot = document.getData();
+                                String hostName = String.valueOf(shot.get("name"));
+                                System.out.println(hostName);
+                            }
+                        } else {
+                            Log.w("TAG", "Error getting documents.", task.getException());
+                        }
+                    }
+                });
+        return hostID;
+    }
+
+    public void setLocation(View view){
+        String location = textView_location.getText().toString();
+        location = location.concat(" "+textView_detail_location.getText().toString());
+        textView_location.setText(location);
+    }
+
+
+
+
+
 }

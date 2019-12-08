@@ -121,12 +121,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Log.d("TAG", document.getId() + " => " + document.getData());
                                 Map<String, Object> shot = document.getData();
-                                String documentId = String.valueOf(shot.get(FirebaseID.documentID));
-                                String name = String.valueOf(shot.get(FirebaseID.name));
+                                String musicEventId = String.valueOf(shot.get(FirebaseID.musicEventId));
                                 String title = String.valueOf(shot.get(FirebaseID.title));
                                 String contents = String.valueOf(shot.get(FirebaseID.contents));
                                 String date = String.valueOf(shot.get(FirebaseID.date));
-                                Post data = new Post(documentId, name, title, contents, date);
+                                String time = String.valueOf(shot.get(FirebaseID.time));
+                                String location = String.valueOf(shot.get(FirebaseID.location));
+                                String eventType = String.valueOf(shot.get(FirebaseID.eventType));
+                                String hostID = String.valueOf(shot.get(FirebaseID.hostID));
+                                Boolean matchedStatus = Boolean.valueOf((Boolean) shot.get(FirebaseID.matchedStatus));
+                                Post data = new Post(date, time, location, eventType, hostID, matchedStatus, contents, musicEventId, title);
                                 System.out.println(data);
                                 mDatas.add(data);
                             }

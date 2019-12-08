@@ -6,11 +6,30 @@ import java.util.Date;
 
 public class Post {
 
-    private String documentId;
-    private String title;
-    private String contents;
-    private String nickname;
     private String date;
+    private String time;
+    private String location;
+    private String eventType;
+    private String hostID;
+    private boolean matchedStatus;
+    private String contents;
+    private String muiscEventId;
+    private String title;
+
+    @ServerTimestamp
+    private Date serverDate;
+
+    public Post(String date, String time, String location, String eventType, String hostID, boolean matchedStatus, String contents, String muiscEventId, String title) {
+        this.date = date;
+        this.time = time;
+        this.location = location;
+        this.eventType = eventType;
+        this.hostID = hostID;
+        this.matchedStatus = matchedStatus;
+        this.contents = contents;
+        this.muiscEventId = muiscEventId;
+        this.title = title;
+    }
 
     public String getDate() {
         return date;
@@ -20,39 +39,44 @@ public class Post {
         this.date = date;
     }
 
-    @ServerTimestamp
-    private Date serverDate;
-
-    public Post(String documentId, String nickname, String title, String contents, String date) {
-        this.documentId = documentId;
-        this.nickname = nickname;
-        this.title = title;
-        this.contents = contents;
-        this.date = date;
+    public String getTime() {
+        return time;
     }
 
-    public String getNickname() {
-        return nickname;
+    public void setTime(String time) {
+        this.time = time;
     }
 
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
+    public String getLocation() {
+        return location;
     }
 
-    public String getDocumentId() {
-        return documentId;
+    public void setLocation(String location) {
+        this.location = location;
     }
 
-    public void setDocumentId(String documentId) {
-        this.documentId = documentId;
+    public String getEventType() {
+        return eventType;
     }
 
-    public String getTitle() {
-        return title;
+    public void setEventType(String eventType) {
+        this.eventType = eventType;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public String getHostID() {
+        return hostID;
+    }
+
+    public void setHostID(String hostID) {
+        this.hostID = hostID;
+    }
+
+    public boolean isMatchedStatus() {
+        return matchedStatus;
+    }
+
+    public void setMatchedStatus(boolean matchedStatus) {
+        this.matchedStatus = matchedStatus;
     }
 
     public String getContents() {
@@ -63,14 +87,35 @@ public class Post {
         this.contents = contents;
     }
 
+    public String getMuiscEventId() {
+        return muiscEventId;
+    }
+
+    public void setMuiscEventId(String muiscEventId) {
+        this.muiscEventId = muiscEventId;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
     @Override
     public String toString() {
         return "Post{" +
-                "documentId='" + documentId + '\'' +
-                ", title='" + title + '\'' +
+                "date='" + date + '\'' +
+                ", time='" + time + '\'' +
+                ", location='" + location + '\'' +
+                ", eventType='" + eventType + '\'' +
+                ", hostID='" + hostID + '\'' +
+                ", matchedStatus=" + matchedStatus +
                 ", contents='" + contents + '\'' +
-                ", nickname='" + nickname + '\'' +
-                ", date='" + date + '\'' +
+                ", muiscEventId='" + muiscEventId + '\'' +
+                ", title='" + title + '\'' +
+                ", serverDate=" + serverDate +
                 '}';
     }
 }

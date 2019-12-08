@@ -33,6 +33,9 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
         holder.date.setText(data.getDate());
         holder.title.setText(data.getTitle()); // 포지션 0의 홀더, 포지션 1의 홀더...
         holder.contents.setText(data.getContents());
+        String location = data.getLocation().split("구 ")[0];
+        location = location.concat("구");
+        holder.location.setText(location);
     }
 
     @Override
@@ -41,7 +44,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
     }
 
     class PostViewHolder extends RecyclerView.ViewHolder{
-        private TextView title, contents, date;
+        private TextView title, contents, date, location;
 
         public PostViewHolder(@NonNull View itemView){
             super(itemView);
@@ -49,6 +52,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
             date = itemView.findViewById(R.id.item_post_date);
             title = itemView.findViewById(R.id.item_post_title);
             contents = itemView.findViewById(R.id.item_post_contents);
+            location = itemView.findViewById(R.id.item_post_location);
         }
     }
 

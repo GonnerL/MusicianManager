@@ -6,7 +6,7 @@
     </string-array>
 
     <string-array name="eventType">
-        <item>--종류--</item>
+        <item>--이벤트 종류--</item>
         <item>결혼식</item>
         <item>파티 및 기념식</item>
         <item>연주회</item>
