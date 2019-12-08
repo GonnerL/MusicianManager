@@ -2,8 +2,6 @@ package com.example.musicianmanager.models;
 
 public class Post {
 
-
-
     private String documentId;
     private String title;
     private String contents;

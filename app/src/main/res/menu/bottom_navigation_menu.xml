@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/action_home"
+        android:icon="@drawable/if_home_172480"
+        android:title="Home" />
+    <item
+        android:id="@+id/action_matchedEvent"
+        android:icon="@drawable/if_matched_event"
+        android:title="Matched Event" />
+    <item
+        android:id="@+id/action_recommend"
+        android:icon="@drawable/if_recommend"
+        android:title="Recommend" />
+    <item
+        android:id="@+id/action_evaluate"
+        android:icon="@drawable/if_evaluate"
+        android:title="Evaluate" />
+    <item
+        android:id="@+id/action_setting"
+        android:icon="@drawable/if_settings_172548"
+        android:title="Setting"/>
+
+</menu>
