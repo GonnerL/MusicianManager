@@ -4,8 +4,10 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 
 import com.example.musicianmanager.adapters.PostAdapter;
 import com.example.musicianmanager.models.Post;
@@ -49,34 +51,39 @@ public class EventViewActivity extends AppCompatActivity {
                 .orderBy(FirebaseID.timestamp, Query.Direction.DESCENDING)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                Log.d("TAG", document.getId() + " 끄앙=> " + document.getData());
-                                Map<String, Object> shot = document.getData();
-                                String hostID = String.valueOf(shot.get(FirebaseID.hostID));
-                                if(!mAuth.getCurrentUser().getUid().equals(hostID)){
-                                    break;
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()) {
+                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                    Log.d("TAG", document.getId() + " 끄앙=> " + document.getData());
+                                    Map<String, Object> shot = document.getData();
+                                    String hostID = String.valueOf(shot.get(FirebaseID.hostID));
+                                    if(!mAuth.getCurrentUser().getUid().equals(hostID)){
+                                        break;
+                                    }
+                                    String musicEventId = String.valueOf(shot.get(FirebaseID.musicEventId));
+                                    String title = String.valueOf(shot.get(FirebaseID.title));
+                                    String contents = String.valueOf(shot.get(FirebaseID.contents));
+                                    String date = String.valueOf(shot.get(FirebaseID.date));
+                                    int time = Integer.parseInt(String.valueOf(shot.get(FirebaseID.time)));
+                                    String location = String.valueOf(shot.get(FirebaseID.location));
+                                    String eventType = String.valueOf(shot.get(FirebaseID.eventType));
+                                    Boolean matchedStatus = Boolean.valueOf((Boolean) shot.get(FirebaseID.matchedStatus));
+                                    Post data = new Post(date, time, location, eventType, hostID, matchedStatus, contents, musicEventId, title);
+                                    mDatas.add(data);
                                 }
-                                String musicEventId = String.valueOf(shot.get(FirebaseID.musicEventId));
-                                String title = String.valueOf(shot.get(FirebaseID.title));
-                                String contents = String.valueOf(shot.get(FirebaseID.contents));
-                                String date = String.valueOf(shot.get(FirebaseID.date));
-                                int time = Integer.parseInt(String.valueOf(shot.get(FirebaseID.time)));
-                                String location = String.valueOf(shot.get(FirebaseID.location));
-                                String eventType = String.valueOf(shot.get(FirebaseID.eventType));
-                                Boolean matchedStatus = Boolean.valueOf((Boolean) shot.get(FirebaseID.matchedStatus));
-                                Post data = new Post(date, time, location, eventType, hostID, matchedStatus, contents, musicEventId, title);
-                                mDatas.add(data);
+                                mAdapter = new PostAdapter(mDatas);
+                                mPostRecyclerView.setAdapter(mAdapter);
+                            } else {
+                                Log.w("TAG", "Error getting documents.", task.getException());
                             }
-                            mAdapter = new PostAdapter(mDatas);
-                            mPostRecyclerView.setAdapter(mAdapter);
-                        } else {
-                            Log.w("TAG", "Error getting documents.", task.getException());
                         }
-                    }
                 });
 
     }
+
+    public void viewApplicant(View view){
+        startActivity(new Intent(EventViewActivity.this,ApplicantActivity.class));
+    }
+
 }

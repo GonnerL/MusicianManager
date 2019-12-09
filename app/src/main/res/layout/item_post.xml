@@ -26,7 +26,7 @@
             android:layout_height="0dp"
             android:textColor="#FFFF"
             android:textSize="0.1sp"
-            android:visibility="invisible" />
+            android:visibility="visible" />
 
 
         <Button
@@ -78,6 +78,7 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
             android:background="@color/subSky"
+            android:onClick="viewApplicant"
             android:text="지원자 보기"
             android:visibility="visible" />
 

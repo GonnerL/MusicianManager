@@ -32,7 +32,7 @@ public class ApplyActivity extends AppCompatActivity implements View.OnClickList
     FirebaseFirestore mStore = FirebaseFirestore.getInstance();
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
-    public static String currentMusicEventId;
+    public static String currentMusicEventId ="MsWeehwiD2HtyT34mHCr";
     TextView title, content, location, date, time, eventType;
 
     @Override
@@ -59,6 +59,7 @@ public class ApplyActivity extends AppCompatActivity implements View.OnClickList
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
+                    System.out.println(currentMusicEventId);
                     if (document.exists()) {
                         Map<String, Object> shot = document.getData();
                         title.setText(String.valueOf(shot.get(FirebaseID.title)));
