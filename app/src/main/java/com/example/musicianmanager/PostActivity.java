@@ -211,4 +211,27 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
         location = location.concat(" "+textView_detail_location.getText().toString());
         textView_location.setText(location);
     }
+
+    public void fillMusicEventInfo(String date, int time, String location, String eventType, String content){
+        Map<String, Object> data = new HashMap<>();
+        data.put(FirebaseID.musicEventId, "temp"); // 여기여기
+        data.put(FirebaseID.title, mTitle.getText().toString()); //
+        data.put(FirebaseID.contents, mContents.getText().toString()); //
+        data.put(FirebaseID.timestamp, FieldValue.serverTimestamp());
+        data.put(FirebaseID.location, textView_location.getText().toString()); //
+        data.put(FirebaseID.eventType,textView_eventType.getText().toString()); //
+        data.put(FirebaseID.hostID, mAuth.getCurrentUser().getUid()); //
+        data.put(FirebaseID.time, Integer.parseInt(post_time.getText().toString())); //
+        data.put(FirebaseID.matchedStatus,false); //
+        date = textView_Date.getText().toString();
+        date = date.concat(" " + textView_time.getText().toString());
+        data.put(FirebaseID.date, date); //
+    }
+
+    public void fillinstrumentInfo(String instrumentType, int recruitmentNumber){
+
+    }
+    public void endPosting(){
+
+    }
 }

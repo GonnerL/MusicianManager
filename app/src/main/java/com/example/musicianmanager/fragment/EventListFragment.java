@@ -63,7 +63,7 @@ public class EventListFragment extends Fragment {
                                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
                                             public void onSuccess(Void aVoid) {
-                                                Log.d("TAG", "DocumentSnapshot successfully updated!");
+                                                Log.d("TAG", "DocumentSnapshot successfully updated! - musiceventid");
                                             }
                                         })
                                         .addOnFailureListener(new OnFailureListener() {

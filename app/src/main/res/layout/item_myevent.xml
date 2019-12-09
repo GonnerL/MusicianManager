@@ -11,7 +11,7 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/item_post_title"
+            android:id="@+id/item_myevent_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
@@ -21,7 +21,7 @@
             tools:text="TITLE/"></TextView>
 
         <TextView
-            android:id="@+id/item_post_musicEventId"
+            android:id="@+id/item_myevent_musicEventId"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:textColor="#FFFF"
@@ -48,7 +48,7 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/item_post_date"
+            android:id="@+id/item_myevent_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
@@ -64,7 +64,7 @@
         android:layout_height="55dp">
 
         <TextView
-            android:id="@+id/item_post_location"
+            android:id="@+id/item_myevent_location"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
@@ -78,9 +78,9 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
             android:background="@color/subSky"
+            android:onClick="viewApplicant"
             android:text="지원자 보기" />
 
     </RelativeLayout>
-
 
 </LinearLayout>

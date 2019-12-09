@@ -24,7 +24,7 @@ public class MyEventAdapter extends RecyclerView.Adapter<MyEventAdapter.PostView
     @NonNull
     @Override
     public MyEventAdapter.PostViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new MyEventAdapter.PostViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_matched_post, parent, false));
+        return new MyEventAdapter.PostViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_myevent, parent, false));
     }
 
     @Override
@@ -34,7 +34,7 @@ public class MyEventAdapter extends RecyclerView.Adapter<MyEventAdapter.PostView
         String location = data.getLocation().split("구 ")[0];
         location = location.concat("구");
         holder.location.setText(location);
-        holder.host.setText(data.getTitle());
+        holder.title.setText(data.getTitle());
     }
 
     @Override
@@ -43,12 +43,12 @@ public class MyEventAdapter extends RecyclerView.Adapter<MyEventAdapter.PostView
     }
 
     class PostViewHolder extends RecyclerView.ViewHolder {
-        private TextView host,performer,date,location;
+        private TextView title,performer,date,location;
         public PostViewHolder(@NonNull View itemView) {
             super(itemView);
-            date = itemView.findViewById(R.id.item_matched_date);
-            host = itemView.findViewById(R.id.item_matched_title);
-            location = itemView.findViewById(R.id.item_matched_location);
+            date = itemView.findViewById(R.id.item_myevent_date);
+            title = itemView.findViewById(R.id.item_myevent_title);
+            location = itemView.findViewById(R.id.item_myevent_location);
         }
     }
 }

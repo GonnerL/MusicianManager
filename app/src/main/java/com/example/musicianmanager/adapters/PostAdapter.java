@@ -4,6 +4,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -40,6 +41,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
         location = location.concat("구");
         holder.location.setText(location);
         holder.musicEventId.setText(data.getMuiscEventId());
+
     }
 
     @Override
@@ -49,6 +51,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
 
     class PostViewHolder extends RecyclerView.ViewHolder{
         private TextView title, date, location, musicEventId;
+        private Button button;
 
         public PostViewHolder(@NonNull View itemView){
             super(itemView);
@@ -57,6 +60,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
             title = itemView.findViewById(R.id.item_post_title);
             location = itemView.findViewById(R.id.item_post_location);
             this.musicEventId = itemView.findViewById(R.id.item_post_musicEventId);
+            button = itemView.findViewById(R.id.button_view_applicant);
+            //button.setVisibility(View.INVISIBLE);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

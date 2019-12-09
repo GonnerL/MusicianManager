@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
+import com.example.musicianmanager.adapters.MyEventAdapter;
 import com.example.musicianmanager.adapters.PostAdapter;
 import com.example.musicianmanager.models.MusicEvent;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -28,7 +29,7 @@ public class EventViewActivity extends AppCompatActivity {
     FirebaseFirestore mStore = FirebaseFirestore.getInstance();
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
-    private PostAdapter mAdapter;
+    private MyEventAdapter mAdapter;
     private List<MusicEvent> mDatas;
 
 
@@ -69,7 +70,7 @@ public class EventViewActivity extends AppCompatActivity {
                                     MusicEvent data = new MusicEvent(date, time, location, eventType, hostID, matchedStatus, contents, musicEventId, title);
                                     mDatas.add(data);
                                 }
-                                mAdapter = new PostAdapter(mDatas);
+                                mAdapter = new MyEventAdapter(mDatas);
                                 mPostRecyclerView.setAdapter(mAdapter);
                             } else {
                                 Log.w("TAG", "Error getting documents.", task.getException());

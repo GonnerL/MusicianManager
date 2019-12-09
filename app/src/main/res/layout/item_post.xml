@@ -71,17 +71,6 @@
             android:textSize="16sp"
             tools:text="location/" />
 
-        <Button
-            android:id="@+id/button_view_applicant"
-            android:layout_width="100dp"
-            android:layout_height="match_parent"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:background="@color/subSky"
-            android:onClick="viewApplicant"
-            android:text="지원자 보기"
-            android:visibility="visible" />
-
     </RelativeLayout>
 
 

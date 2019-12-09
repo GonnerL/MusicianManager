@@ -59,8 +59,9 @@ public class ApplicantActivity extends AppCompatActivity {
                                 String musicEventId = String.valueOf(shot.get(FirebaseID.musicEventId));
                                 String performerID = String.valueOf(shot.get(FirebaseID.performerID));
                                 if(!ApplyActivity.currentMusicEventId.equals(musicEventId)){
+                                    System.out.println(musicEventId + "::::"+ApplyActivity.currentMusicEventId);
                                     System.out.println("불일치");
-                                    break;
+                                    continue;
                                 }
                                 Performer performer = new Performer(performerID);
                                 mDatas.add(performer);
