@@ -18,6 +18,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.example.musicianmanager.adapters.PostAdapter;
 import com.example.musicianmanager.fragment.EvaluationFragment;
@@ -64,7 +65,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         mPostRecyclerView = findViewById(R.id.main_recyclerview);
 
-        bottomNavigationView = (BottomNavigationView) findViewById(R.id.mainactivity_bottomnavigationview);
+        bottomNavigationView = findViewById(R.id.mainactivity_bottomnavigationview);
         toolbar = findViewById(R.id.toolbar);
 
         setSupportActionBar(toolbar);
@@ -130,7 +131,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 mDatas.add(data);
                             }
                             mAdapter = new PostAdapter(mDatas);
-                            mPostRecyclerView.setAdapter(mAdapter);
+//                            mPostRecyclerView.setAdapter(mAdapter);
                         } else {
                             Log.w("TAG", "Error getting documents.", task.getException());
                         }

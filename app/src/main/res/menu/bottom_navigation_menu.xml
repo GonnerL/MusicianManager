@@ -7,15 +7,15 @@
         android:title="Home" />
     <item
         android:id="@+id/action_matchedEvent"
-        android:icon="@drawable/if_matched_event"
-        android:title="Matched Event" />
+        android:icon="@drawable/if_matched_event_resize"
+        android:title="Matching" />
     <item
         android:id="@+id/action_recommend"
-        android:icon="@drawable/if_recommend"
+        android:icon="@drawable/if_recommend_resize"
         android:title="Recommend" />
     <item
         android:id="@+id/action_evaluate"
-        android:icon="@drawable/if_evaluate"
+        android:icon="@drawable/if_evaluate_resize"
         android:title="Evaluate" />
     <item
         android:id="@+id/action_setting"

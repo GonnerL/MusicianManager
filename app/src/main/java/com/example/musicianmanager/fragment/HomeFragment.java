@@ -16,6 +16,7 @@ import com.example.musicianmanager.R;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 public class HomeFragment extends Fragment {
     @Nullable
@@ -25,13 +26,22 @@ public class HomeFragment extends Fragment {
         setHasOptionsMenu(true);
         androidx.appcompat.app.ActionBar actionBar = ((MainActivity) getActivity()).getSupportActionBar();
 
-        //actionbar.setDisplayHomeAsUpEnabled(true);
-        // ↓툴바의 홈버튼의 이미지를 변경(기본 이미지는 뒤로가기 화살표)
-        //actionbar.setHomeAsUpIndicator(R.drawable.if_profile_1954535);
         actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         actionBar.setCustomView(R.layout.home_toolbar_title);
 
         return view;
+    }
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        Fragment myEventFragment = new MyEventFragment();
+        Fragment eventListFragment = new EventListFragment();
+
+        FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+        transaction.replace(R.id.myevent_fragment_container, myEventFragment).commit();
+
+        FragmentTransaction transaction2 = getChildFragmentManager().beginTransaction();
+        transaction2.replace(R.id.eventlist_fragment_container, eventListFragment).commit();
     }
 
     @Override
@@ -45,7 +55,7 @@ public class HomeFragment extends Fragment {
 
         switch(item.getItemId()) {
             case R.id.home_toolbar_account:
-                Toast.makeText(getContext(),"홈화면 계정 기능 클릭",Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(),"My Profile",Toast.LENGTH_LONG).show();
                 return true;
 
             default: return super.onOptionsItemSelected(item);
