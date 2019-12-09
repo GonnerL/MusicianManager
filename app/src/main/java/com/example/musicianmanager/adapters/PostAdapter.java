@@ -32,10 +32,12 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
         Post data = datas.get(position); // Post 객체 만듬 -> position : 0,1,2,3... 그 포지션의 item을 하나 씩 넣어주는 것.
         holder.date.setText(data.getDate());
         holder.title.setText(data.getTitle()); // 포지션 0의 홀더, 포지션 1의 홀더...
-        holder.contents.setText(data.getContents());
         String location = data.getLocation().split("구 ")[0];
+        System.out.println(location);
         location = location.concat("구");
         holder.location.setText(location);
+        holder.time.setText(data.getTime()+"시간");
+        holder.musicEventId.setText(data.getMuiscEventId());
     }
 
     @Override
@@ -44,15 +46,16 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
     }
 
     class PostViewHolder extends RecyclerView.ViewHolder{
-        private TextView title, contents, date, location;
+        private TextView title, date, location, time, musicEventId;
 
         public PostViewHolder(@NonNull View itemView){
             super(itemView);
 
             date = itemView.findViewById(R.id.item_post_date);
             title = itemView.findViewById(R.id.item_post_title);
-            contents = itemView.findViewById(R.id.item_post_contents);
             location = itemView.findViewById(R.id.item_post_location);
+            time = itemView.findViewById(R.id.item_post_time);
+            musicEventId = itemView.findViewById(R.id.item_post_musicEventId);
         }
     }
 

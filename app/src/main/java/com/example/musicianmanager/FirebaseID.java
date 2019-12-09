@@ -15,6 +15,7 @@ public class FirebaseID {
     public static String contents = "contents";
     public static String timestamp = "timestamp";
     public static String hostID = "hostID";
+    public static String name = "name";
     public static String status = "status";
     public static String date = "date";
     public static String time = "time";
@@ -22,5 +23,7 @@ public class FirebaseID {
     public static String location = "location";
     public static String eventType = "eventType";
 
+    public static String performerID = "performerID";
+    public static String acceptance = "acceptance";
 
 }

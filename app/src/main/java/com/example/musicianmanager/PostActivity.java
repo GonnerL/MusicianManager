@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -180,13 +181,13 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View view) {
         if(mAuth.getCurrentUser() != null) {
             Map<String, Object> data = new HashMap<>();
-            data.put(FirebaseID.musicEventId, mAuth.getCurrentUser().getUid()); //
+            data.put(FirebaseID.musicEventId, "temp"); // 여기여기
             data.put(FirebaseID.title, mTitle.getText().toString()); //
             data.put(FirebaseID.contents, mContents.getText().toString()); //
             data.put(FirebaseID.timestamp, FieldValue.serverTimestamp());
             data.put(FirebaseID.location, textView_location.getText().toString()); //
             data.put(FirebaseID.eventType,textView_eventType.getText().toString()); //
-            data.put(FirebaseID.hostID, getHostId()); //
+            data.put(FirebaseID.hostID, mAuth.getCurrentUser().getUid()); //
             data.put(FirebaseID.time, post_time.getText().toString()); //
             data.put(FirebaseID.matchedStatus,false); //
             date = textView_Date.getText().toString();
@@ -211,33 +212,13 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    public String getHostId(){
-        String  hostID = "EK";
-        mStore.collection(FirebaseID.user)
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                Log.d("TAG", document.getId() + " => " + document.getData());
-                                Map<String, Object> shot = document.getData();
-                                String hostName = String.valueOf(shot.get("name"));
-                                System.out.println(hostName);
-                            }
-                        } else {
-                            Log.w("TAG", "Error getting documents.", task.getException());
-                        }
-                    }
-                });
-        return hostID;
-    }
 
     public void setLocation(View view){
         String location = textView_location.getText().toString();
         location = location.concat(" "+textView_detail_location.getText().toString());
         textView_location.setText(location);
     }
+
 
 
 
