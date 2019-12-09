@@ -145,7 +145,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 String title = String.valueOf(shot.get(FirebaseID.title));
                                 String contents = String.valueOf(shot.get(FirebaseID.contents));
                                 String date = String.valueOf(shot.get(FirebaseID.date));
-                                String time = String.valueOf(shot.get(FirebaseID.time));
+                                int time = Integer.parseInt(String.valueOf(shot.get(FirebaseID.time)));
                                 String location = String.valueOf(shot.get(FirebaseID.location));
                                 String eventType = String.valueOf(shot.get(FirebaseID.eventType));
                                 String hostID = String.valueOf(shot.get(FirebaseID.hostID));

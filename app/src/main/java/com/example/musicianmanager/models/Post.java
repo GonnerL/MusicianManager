@@ -7,7 +7,7 @@ import java.util.Date;
 public class Post {
 
     private String date;
-    private String time;
+    private int time;
     private String location;
     private String eventType;
     private String hostID;
@@ -19,7 +19,7 @@ public class Post {
     @ServerTimestamp
     private Date serverDate;
 
-    public Post(String date, String time, String location, String eventType, String hostID, boolean matchedStatus, String contents, String muiscEventId, String title) {
+    public Post(String date, int time, String location, String eventType, String hostID, boolean matchedStatus, String contents, String muiscEventId, String title) {
         this.date = date;
         this.time = time;
         this.location = location;
@@ -39,11 +39,11 @@ public class Post {
         this.date = date;
     }
 
-    public String getTime() {
+    public int getTime() {
         return time;
     }
 
-    public void setTime(String time) {
+    public void setTime(int time) {
         this.time = time;
     }
 
