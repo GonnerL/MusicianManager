@@ -85,7 +85,7 @@ public class ApplyActivity extends AppCompatActivity implements View.OnClickList
             Map<String, Object> data = new HashMap<>();
             data.put(FirebaseID.musicEventId, currentMusicEventId); // 여기여기
             data.put(FirebaseID.acceptance, false);
-            data.put(FirebaseID.hostID, mAuth.getCurrentUser().getUid());
+            data.put(FirebaseID.performerID, mAuth.getCurrentUser().getUid());
             mStore.collection("ApplyingRequest")
                     .add(data)
                     .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {

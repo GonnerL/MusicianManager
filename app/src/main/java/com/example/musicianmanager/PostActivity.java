@@ -188,7 +188,7 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
             data.put(FirebaseID.location, textView_location.getText().toString()); //
             data.put(FirebaseID.eventType,textView_eventType.getText().toString()); //
             data.put(FirebaseID.hostID, mAuth.getCurrentUser().getUid()); //
-            data.put(FirebaseID.time, post_time.getText().toString()); //
+            data.put(FirebaseID.time, Integer.parseInt(post_time.getText().toString())); //
             data.put(FirebaseID.matchedStatus,false); //
             date = textView_Date.getText().toString();
             date = date.concat(" " + textView_time.getText().toString());

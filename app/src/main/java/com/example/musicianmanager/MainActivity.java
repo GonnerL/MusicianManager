@@ -193,14 +193,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void toApply(View view){
+        System.out.println("왔냐");
         TextView musicEventId;
         musicEventId = findViewById(R.id.item_post_musicEventId);
         ApplyActivity.currentMusicEventId = musicEventId.getText().toString();
         startActivity(new Intent(MainActivity.this, ApplyActivity.class));
     }
 
-    public void toEventView(View view){
-
+    public void toMyEvent(View view){
         startActivity(new Intent(MainActivity.this, EventViewActivity.class));
     }
 

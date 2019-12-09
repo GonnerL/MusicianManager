@@ -36,7 +36,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
         System.out.println(location);
         location = location.concat("구");
         holder.location.setText(location);
-        holder.time.setText(data.getTime()+"시간");
         holder.musicEventId.setText(data.getMuiscEventId());
     }
 
@@ -54,7 +53,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
             date = itemView.findViewById(R.id.item_post_date);
             title = itemView.findViewById(R.id.item_post_title);
             location = itemView.findViewById(R.id.item_post_location);
-            time = itemView.findViewById(R.id.item_post_time);
             musicEventId = itemView.findViewById(R.id.item_post_musicEventId);
         }
     }
