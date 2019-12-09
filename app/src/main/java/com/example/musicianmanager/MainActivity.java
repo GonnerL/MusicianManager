@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mPostRecyclerView = findViewById(R.id.main_recyclerview);
+//        mPostRecyclerView = findViewById(R.id.main_recyclerview);
 
         bottomNavigationView = findViewById(R.id.mainactivity_bottomnavigationview);
         toolbar = findViewById(R.id.toolbar);
@@ -114,53 +114,57 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onStart() {
         super.onStart();
-        mDatas = new ArrayList<>();
-        mStore.collection(FirebaseID.post)
-                .orderBy(FirebaseID.timestamp, Query.Direction.DESCENDING)
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                Log.d("TAG", document.getId() + " => " + document.getData());
-                                System.out.println(document.getId());
-                                Map<String, Object> shot = document.getData();
-                                DocumentReference doRef = mStore.collection(FirebaseID.post).document(document.getId());
-                                doRef
-                                        .update(FirebaseID.musicEventId, document.getId())
-                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                            @Override
-                                            public void onSuccess(Void aVoid) {
-                                                Log.d("TAG", "DocumentSnapshot successfully updated!");
-                                            }
-                                        })
-                                        .addOnFailureListener(new OnFailureListener() {
-                                            @Override
-                                            public void onFailure(@NonNull Exception e) {
-                                                Log.w("TAG", "Error updating document", e);
-                                            }
-                                        });
-                                String musicEventId = String.valueOf(shot.get(FirebaseID.musicEventId));
-                                String title = String.valueOf(shot.get(FirebaseID.title));
-                                String contents = String.valueOf(shot.get(FirebaseID.contents));
-                                String date = String.valueOf(shot.get(FirebaseID.date));
-                                int time = Integer.parseInt(String.valueOf(shot.get(FirebaseID.time)));
-                                String location = String.valueOf(shot.get(FirebaseID.location));
-                                String eventType = String.valueOf(shot.get(FirebaseID.eventType));
-                                String hostID = String.valueOf(shot.get(FirebaseID.hostID));
-                                Boolean matchedStatus = Boolean.valueOf((Boolean) shot.get(FirebaseID.matchedStatus));
-                                Post data = new Post(date, time, location, eventType, hostID, matchedStatus, contents, musicEventId, title);
-                                System.out.println(data);
-                                mDatas.add(data);
-                            }
-                            mAdapter = new PostAdapter(mDatas);
-                            mPostRecyclerView.setAdapter(mAdapter);
-                        } else {
-                            Log.w("TAG", "Error getting documents.", task.getException());
-                        }
-                    }
-                });
+//        mDatas = new ArrayList<>();
+//        mStore.collection(FirebaseID.post)
+//                .orderBy(FirebaseID.timestamp, Query.Direction.DESCENDING)
+//                .get()
+//                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//                        if (task.isSuccessful()) {
+//                            for (QueryDocumentSnapshot document : task.getResult()) {
+//                                Log.d("TAG", document.getId() + " => " + document.getData());
+//                                System.out.println(document.getId());
+//                                Map<String, Object> shot = document.getData();
+//                                DocumentReference doRef = mStore.collection(FirebaseID.post).document(document.getId());
+//                                doRef
+//                                        .update(FirebaseID.musicEventId, document.getId())
+//                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+//                                            @Override
+//                                            public void onSuccess(Void aVoid) {
+//                                                Log.d("TAG", "DocumentSnapshot successfully updated!");
+//                                            }
+//                                        })
+//                                        .addOnFailureListener(new OnFailureListener() {
+//                                            @Override
+//                                            public void onFailure(@NonNull Exception e) {
+//                                                Log.w("TAG", "Error updating document", e);
+//                                            }
+//                                        });
+//                                try {
+//                                    String musicEventId = String.valueOf(shot.get(FirebaseID.musicEventId));
+//                                    String title = String.valueOf(shot.get(FirebaseID.title));
+//                                    String contents = String.valueOf(shot.get(FirebaseID.contents));
+//                                    String date = String.valueOf(shot.get(FirebaseID.date));
+//                                    int time = Integer.parseInt(String.valueOf(shot.get(FirebaseID.time)));
+//                                    String location = String.valueOf(shot.get(FirebaseID.location));
+//                                    String eventType = String.valueOf(shot.get(FirebaseID.eventType));
+//                                    String hostID = String.valueOf(shot.get(FirebaseID.hostID));
+//                                    Boolean matchedStatus = Boolean.valueOf((Boolean) shot.get(FirebaseID.matchedStatus));
+//                                    Post data = new Post(date, time, location, eventType, hostID, matchedStatus, contents, musicEventId, title);
+//                                    System.out.println(data);
+//                                    mDatas.add(data);
+//                                } catch (Exception e) {
+//                                    Log.w("TAG", "Something Not Written", e);
+//                                }
+//                            }
+//                            mAdapter = new PostAdapter(mDatas);
+//                            mPostRecyclerView.setAdapter(mAdapter);
+//                        } else {
+//                            Log.w("TAG", "Error getting documents.", task.getException());
+//                        }
+//                    }
+//                });
 
     }
 
