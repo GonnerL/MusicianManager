@@ -205,7 +205,7 @@
         android:layout_width="409dp"
         android:layout_height="136dp"
         android:background="@null"
-        android:hint="contents"
+        android:hint="급여 및 기타 전달, 특이사항을 입력해주세요"
         android:textColor="@android:color/holo_blue_dark"
         android:textSize="16sp" />
 

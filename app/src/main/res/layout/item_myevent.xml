@@ -78,8 +78,7 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
             android:background="@color/subSky"
-            android:text="지원자 보기"
-            android:visibility="visible" />
+            android:text="지원자 보기" />
 
     </RelativeLayout>
 

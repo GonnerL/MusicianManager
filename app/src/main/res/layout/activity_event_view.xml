@@ -7,73 +7,9 @@
     android:orientation="vertical"
     tools:context=".EventViewActivity">
 
-    <LinearLayout
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/myEvent_recyclerview"
         android:layout_width="match_parent"
-        android:layout_height="100dp" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="70dp" >
-
-        <TextView
-            android:id="@+id/event_view_title"
-            android:layout_width="wrap_content"
-            android:textColor="#6200EA"
-            android:layout_height="wrap_content"
-            android:textAppearance="@style/TextAppearance.AppCompat.Display3"
-            tools:text="TITLE/" />
-
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="70dp" >
-
-        <TextView
-            android:id="@+id/event_view_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="@style/TextAppearance.AppCompat.Display2"
-            tools:text="DATE/" />
-
-        <TextView
-            android:id="@+id/event_view_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="@style/TextAppearance.AppCompat.Display2"
-            tools:text="TIME/" />
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="70dp" >
-
-        <TextView
-            android:id="@+id/event_view_location"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="@style/TextAppearance.AppCompat.Display2"
-            tools:text="LOCATION/" />
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="70dp" >
-
-        <TextView
-            android:id="@+id/event_view_eventType"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="@style/TextAppearance.AppCompat.Display2"
-            tools:text="EVENT_TYPE/" />
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="70dp" >
-
-        <TextView
-            android:id="@+id/event_view_content"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="@style/TextAppearance.AppCompat.Display2"
-            tools:text="CONTENT/" />
-    </LinearLayout>
-
+        android:layout_height="match_parent"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 </LinearLayout>
