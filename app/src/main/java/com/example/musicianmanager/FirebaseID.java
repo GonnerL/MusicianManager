@@ -5,7 +5,7 @@ public class FirebaseID {
     //  MusicEvent data = new MusicEvent(date, time, location, eventType,
     //hostID, matchedStatus, contents, musicEventId, title);
     public static String user = "user";
-    public static String post = "post";
+    public static String post = "MusicEvent";
 
     public static String musicEventId = "muicEventId";
     public static String email = "email";

@@ -28,7 +28,7 @@ public class ApplyActivity extends AppCompatActivity implements View.OnClickList
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
     public static String currentMusicEventId="qlrTmitHyo44yYYTIf0r";
-    TextView title, content, location, date, time, eventType;
+    TextView title, content, location, date, time, eventType, instrumentRequest;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +41,7 @@ public class ApplyActivity extends AppCompatActivity implements View.OnClickList
         date = findViewById(R.id.apply_date);
         eventType = findViewById(R.id.apply_eventType);
         time = findViewById(R.id.apply_time);
+        instrumentRequest = findViewById(R.id.apply_instrumentRequest);
         findViewById(R.id.button_apply).setOnClickListener(this);
     }
 
@@ -63,6 +64,7 @@ public class ApplyActivity extends AppCompatActivity implements View.OnClickList
                         date.setText(String.valueOf(shot.get(FirebaseID.date)).concat(", "));
                         eventType.setText(String.valueOf(shot.get(FirebaseID.eventType)));
                         time.setText(String.valueOf(shot.get(FirebaseID.time)).concat("시간"));
+                        instrumentRequest.setText("비올라 1명");
                         Log.d("TAG", "DocumentSnapshot data: " + document.getData());
                     } else {
                         Log.d("TAG", "No such document");
@@ -77,6 +79,34 @@ public class ApplyActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onClick(View view) {
+        if(mAuth.getCurrentUser() != null) {
+            Map<String, Object> data = new HashMap<>();
+            data.put(FirebaseID.musicEventId, currentMusicEventId); // 여기여기
+            data.put(FirebaseID.acceptance, false);
+            data.put(FirebaseID.performerID, mAuth.getCurrentUser().getUid());
+/*
+            if(PostActivity.possible()) applyForMusicEvent(currentMusicEventId,mAuth.getCurrentUser().getUid());
+*/
+            mStore.collection("ApplyingRequest")
+                    .add(data)
+                    .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                        @Override
+                        public void onSuccess(DocumentReference documentReference) {
+                            Log.d("Tag", "DocumentSnapshot added with ID: " + documentReference.getId());
+                            Toast.makeText(ApplyActivity.this, "지원이 완료되었습니다", Toast.LENGTH_LONG).show();
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Log.w("Tag", "Error adding document", e);
+                        }
+                    });
+            finish();
+        }
+    }
+
+    public void applyForMusicEvent(String MusicEventID, String PerformerID){
         if(mAuth.getCurrentUser() != null) {
             Map<String, Object> data = new HashMap<>();
             data.put(FirebaseID.musicEventId, currentMusicEventId); // 여기여기
@@ -100,5 +130,7 @@ public class ApplyActivity extends AppCompatActivity implements View.OnClickList
             finish();
         }
     }
+
+
 
 }

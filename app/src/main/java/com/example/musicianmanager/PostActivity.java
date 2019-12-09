@@ -35,7 +35,7 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
     private TimePickerDialog.OnTimeSetListener callbackMethod2;
 
     private String date;
-    private TextView textView_Date, textView_time, textView_eventType, textView_location, post_time, textView_detail_location;
+    private TextView textView_instrument, textView_Date, textView_time, textView_eventType, textView_location, post_time, textView_detail_location;
     private EditText mTitle, mContents;
     private Spinner spinner_eventType;
 
@@ -54,6 +54,7 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
         textView_eventType = findViewById(R.id.textView_eventType);
         textView_location = findViewById(R.id.post_location);
         textView_detail_location = findViewById(R.id.post_detail_location);
+        textView_instrument = findViewById(R.id.post_instrumentRequest);
         post_time = findViewById(R.id.post_time);
 
         final Spinner spinDo = (Spinner)findViewById(R.id.spinner_location_do);
@@ -109,7 +110,9 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-
+/*
+                if(possible()) makeNewMusicEvent();
+*/
             }
         });
 
@@ -187,7 +190,7 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
             date = date.concat(" " + textView_time.getText().toString());
             data.put(FirebaseID.date, date); //
             System.out.println(data);
-            mStore.collection("post")
+            mStore.collection(FirebaseID.post)
                     .add(data)
                     .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                         @Override
@@ -212,6 +215,12 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
         textView_location.setText(location);
     }
 
+    public void makeNewMusicEvent(){
+        fillMusicEventInfo(date, 1,textView_location.getText().toString(),textView_eventType.getText().toString(),"");
+        fillinstrumentInfo(textView_instrument.getText().toString(), 1,null);
+        endPosting();
+    }
+
     public void fillMusicEventInfo(String date, int time, String location, String eventType, String content){
         Map<String, Object> data = new HashMap<>();
         data.put(FirebaseID.musicEventId, "temp"); // 여기여기
@@ -228,10 +237,43 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
         data.put(FirebaseID.date, date); //
     }
 
-    public void fillinstrumentInfo(String instrumentType, int recruitmentNumber){
-
+    public void fillinstrumentInfo(String instrumentType, int recruitmentNumber,View view){
+        instrumentType = "비올라";
+        recruitmentNumber = 1;
+        textView_instrument.setText(instrumentType+"1명");
     }
     public void endPosting(){
+        Map<String, Object> data = new HashMap<>();
+        data.put(FirebaseID.musicEventId, "temp"); // 여기여기
+        data.put(FirebaseID.title, mTitle.getText().toString()); //
+        data.put(FirebaseID.contents, mContents.getText().toString()); //
+        data.put(FirebaseID.timestamp, FieldValue.serverTimestamp());
+        data.put(FirebaseID.location, textView_location.getText().toString()); //
+        data.put(FirebaseID.eventType,textView_eventType.getText().toString()); //
+        data.put(FirebaseID.hostID, mAuth.getCurrentUser().getUid()); //
+        data.put(FirebaseID.time, Integer.parseInt(post_time.getText().toString())); //
+        data.put(FirebaseID.matchedStatus,false); //
+        date = textView_Date.getText().toString();
+        date = date.concat(" " + textView_time.getText().toString());
+        data.put(FirebaseID.date, date); //
+        mStore.collection(FirebaseID.post)
+                .add(data)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                        Log.d("Tag", "DocumentSnapshot added with ID: " + documentReference.getId());
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w("Tag", "Error adding document", e);
+                    }
+                });
+        startActivity(new Intent(PostActivity.this,MainActivity.class));
+    }
 
+    public static boolean possible(){
+        return false;
     }
 }

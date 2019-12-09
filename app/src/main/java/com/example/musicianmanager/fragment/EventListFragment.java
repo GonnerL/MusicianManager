@@ -43,6 +43,7 @@ public class EventListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_eventlist, container, false);
 
+
         mPostRecyclerView = view.findViewById(R.id.main_recyclerview);
 
         mDatas = new ArrayList<>();
@@ -80,8 +81,12 @@ public class EventListFragment extends Fragment {
                                     int time = Integer.parseInt(String.valueOf(shot.get(FirebaseID.time)));
                                     String location = String.valueOf(shot.get(FirebaseID.location));
                                     String eventType = String.valueOf(shot.get(FirebaseID.eventType));
+                                    String instrumentType = "비올라";
                                     String hostID = String.valueOf(shot.get(FirebaseID.hostID));
                                     Boolean matchedStatus = Boolean.valueOf((Boolean) shot.get(FirebaseID.matchedStatus));
+/*
+                                    if(possible()) requestMusicEventList(date,time,location,eventType,instrumentType);
+*/
                                     MusicEvent data = new MusicEvent(date, time, location, eventType, hostID, matchedStatus, contents, musicEventId, title);
                                     System.out.println(data);
                                     mDatas.add(data);
@@ -100,6 +105,63 @@ public class EventListFragment extends Fragment {
         return view;
 
     }
-
+    public void requestMusicEventList(String date, int time, String location, String eventType, String instrumentType){
+        mDatas = new ArrayList<>();
+        mStore.collection(FirebaseID.post)
+                .orderBy(FirebaseID.timestamp, Query.Direction.DESCENDING)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Log.d("TAG", document.getId() + " => " + document.getData());
+                                System.out.println(document.getId());
+                                Map<String, Object> shot = document.getData();
+                                DocumentReference doRef = mStore.collection(FirebaseID.post).document(document.getId());
+                                doRef
+                                        .update(FirebaseID.musicEventId, document.getId())
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void aVoid) {
+                                                Log.d("TAG", "DocumentSnapshot successfully updated! - musiceventid");
+                                            }
+                                        })
+                                        .addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                Log.w("TAG", "Error updating document", e);
+                                            }
+                                        });
+                                try {
+                                    String musicEventId = String.valueOf(shot.get(FirebaseID.musicEventId));
+                                    String title = String.valueOf(shot.get(FirebaseID.title));
+                                    String contents = String.valueOf(shot.get(FirebaseID.contents));
+                                    String date = String.valueOf(shot.get(FirebaseID.date));
+                                    int time = Integer.parseInt(String.valueOf(shot.get(FirebaseID.time)));
+                                    String location = String.valueOf(shot.get(FirebaseID.location));
+                                    String eventType = String.valueOf(shot.get(FirebaseID.eventType));
+                                    String instrumentType = "비올라";
+                                    String hostID = String.valueOf(shot.get(FirebaseID.hostID));
+                                    Boolean matchedStatus = Boolean.valueOf((Boolean) shot.get(FirebaseID.matchedStatus));
+                                    requestMusicEventList(date,time,location,eventType,instrumentType);
+                                    MusicEvent data = new MusicEvent(date, time, location, eventType, hostID, matchedStatus, contents, musicEventId, title);
+                                    System.out.println(data);
+                                    //mDatas.add(data);
+                                } catch (Exception e) {
+                                    Log.w("TAG", "Something Not Written", e);
+                                }
+                            }
+                            //mAdapter = new PostAdapter(mDatas);
+                            //mPostRecyclerView.setAdapter(mAdapter);
+                        } else {
+                            Log.w("TAG", "Error getting documents.", task.getException());
+                        }
+                    }
+                });
+    }
+    public boolean possible(){
+        return false;
+    }
 }
 

@@ -156,6 +156,7 @@
                 android:id="@+id/button_location"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="?attr/actionBarItemBackground"
                 android:onClick="setLocation" />
 
 
@@ -178,7 +179,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="80dp"
         android:orientation="horizontal">
 
         <Spinner
@@ -197,6 +198,18 @@
             android:layout_weight="0"
             android:ems="10"
             android:inputType="numberDecimal" />
+
+        <Button
+            android:id="@+id/setInstrument"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="?attr/actionBarItemBackground" />
+
+        <TextView
+            android:id="@+id/post_instrumentRequest"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#FFFF" />
 
     </LinearLayout>
 
