@@ -2,7 +2,7 @@ package com.example.musicianmanager;
 
 public class FirebaseID {
 
-    //  Post data = new Post(date, time, location, eventType,
+    //  MusicEvent data = new MusicEvent(date, time, location, eventType,
     //hostID, matchedStatus, contents, musicEventId, title);
     public static String user = "user";
     public static String post = "post";

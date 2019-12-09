@@ -10,13 +10,10 @@ import android.util.Log;
 import android.view.View;
 
 import com.example.musicianmanager.adapters.PostAdapter;
-import com.example.musicianmanager.models.Post;
+import com.example.musicianmanager.models.MusicEvent;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -32,7 +29,7 @@ public class EventViewActivity extends AppCompatActivity {
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
     private PostAdapter mAdapter;
-    private List<Post> mDatas;
+    private List<MusicEvent> mDatas;
 
 
     @Override
@@ -69,7 +66,7 @@ public class EventViewActivity extends AppCompatActivity {
                                     String location = String.valueOf(shot.get(FirebaseID.location));
                                     String eventType = String.valueOf(shot.get(FirebaseID.eventType));
                                     Boolean matchedStatus = Boolean.valueOf((Boolean) shot.get(FirebaseID.matchedStatus));
-                                    Post data = new Post(date, time, location, eventType, hostID, matchedStatus, contents, musicEventId, title);
+                                    MusicEvent data = new MusicEvent(date, time, location, eventType, hostID, matchedStatus, contents, musicEventId, title);
                                     mDatas.add(data);
                                 }
                                 mAdapter = new PostAdapter(mDatas);

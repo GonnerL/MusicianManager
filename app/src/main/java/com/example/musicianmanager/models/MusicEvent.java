@@ -4,7 +4,7 @@ import com.google.firebase.firestore.ServerTimestamp;
 
 import java.util.Date;
 
-public class Post {
+public class MusicEvent {
 
     private String date;
     private int time;
@@ -19,7 +19,7 @@ public class Post {
     @ServerTimestamp
     private Date serverDate;
 
-    public Post(String date, int time, String location, String eventType, String hostID, boolean matchedStatus, String contents, String muiscEventId, String title) {
+    public MusicEvent(String date, int time, String location, String eventType, String hostID, boolean matchedStatus, String contents, String muiscEventId, String title) {
         this.date = date;
         this.time = time;
         this.location = location;
@@ -105,7 +105,7 @@ public class Post {
 
     @Override
     public String toString() {
-        return "Post{" +
+        return "MusicEvent{" +
                 "date='" + date + '\'' +
                 ", time='" + time + '\'' +
                 ", location='" + location + '\'' +
@@ -118,4 +118,5 @@ public class Post {
                 ", serverDate=" + serverDate +
                 '}';
     }
+
 }

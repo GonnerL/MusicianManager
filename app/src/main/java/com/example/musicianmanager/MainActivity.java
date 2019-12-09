@@ -3,7 +3,6 @@ package com.example.musicianmanager;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
@@ -14,10 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.musicianmanager.adapters.PostAdapter;
@@ -26,26 +22,12 @@ import com.example.musicianmanager.fragment.HomeFragment;
 import com.example.musicianmanager.fragment.MatchedEventFragment;
 import com.example.musicianmanager.fragment.RecommendFragment;
 import com.example.musicianmanager.fragment.SettingFragment;
-import com.example.musicianmanager.models.Post;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
+import com.example.musicianmanager.models.MusicEvent;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
-import com.google.firebase.firestore.core.QueryListener;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -55,7 +37,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private RecyclerView mPostRecyclerView;
 
     private PostAdapter mAdapter;
-    private List<Post> mDatas;
+    private List<MusicEvent> mDatas;
 
     BottomNavigationView bottomNavigationView;
     Toolbar toolbar;
@@ -151,7 +133,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //                                    String eventType = String.valueOf(shot.get(FirebaseID.eventType));
 //                                    String hostID = String.valueOf(shot.get(FirebaseID.hostID));
 //                                    Boolean matchedStatus = Boolean.valueOf((Boolean) shot.get(FirebaseID.matchedStatus));
-//                                    Post data = new Post(date, time, location, eventType, hostID, matchedStatus, contents, musicEventId, title);
+//                                    MusicEvent data = new MusicEvent(date, time, location, eventType, hostID, matchedStatus, contents, musicEventId, title);
 //                                    System.out.println(data);
 //                                    mDatas.add(data);
 //                                } catch (Exception e) {
@@ -197,13 +179,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         title = findViewById(R.id.item_post_title);
         System.out.println(title.getText().toString());
         musicEventId = findViewById(R.id.item_post_musicEventId);
-        ApplyActivity.currentMusicEventId = musicEventId.getText().toString();*/
+        ApplyActivity.currentMusicEventId = "qlrTmitHyo44yYYTIf0r";
+        System.out.println(musicEventId);*/
         startActivity(new Intent(MainActivity.this, ApplyActivity.class));
     }
 
     public void toMyEvent(View view){
         startActivity(new Intent(MainActivity.this, EventViewActivity.class));
     }
-
-
 }

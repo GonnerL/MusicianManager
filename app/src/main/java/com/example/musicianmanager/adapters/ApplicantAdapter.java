@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.musicianmanager.R;
 import com.example.musicianmanager.models.Performer;
-import com.example.musicianmanager.models.Post;
 
 import java.util.List;
 

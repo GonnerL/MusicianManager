@@ -15,10 +15,10 @@
         android:textSize="16sp"
         android:textStyle="bold" />
 
-<!--    <androidx.recyclerview.widget.RecyclerView-->
-<!--        android:id="@+id/main_recyclerview"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"-->
-<!--        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />-->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/matched_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
 </LinearLayout>

@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import com.example.musicianmanager.FirebaseID;
 import com.example.musicianmanager.R;
 import com.example.musicianmanager.adapters.PostAdapter;
-import com.example.musicianmanager.models.Post;
+import com.example.musicianmanager.models.MusicEvent;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -26,7 +26,6 @@ import java.util.List;
 import java.util.Map;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -38,7 +37,7 @@ public class EventListFragment extends Fragment {
     private RecyclerView mPostRecyclerView;
 
     private PostAdapter mAdapter;
-    private List<Post> mDatas;
+    private List<MusicEvent> mDatas;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -83,7 +82,7 @@ public class EventListFragment extends Fragment {
                                     String eventType = String.valueOf(shot.get(FirebaseID.eventType));
                                     String hostID = String.valueOf(shot.get(FirebaseID.hostID));
                                     Boolean matchedStatus = Boolean.valueOf((Boolean) shot.get(FirebaseID.matchedStatus));
-                                    Post data = new Post(date, time, location, eventType, hostID, matchedStatus, contents, musicEventId, title);
+                                    MusicEvent data = new MusicEvent(date, time, location, eventType, hostID, matchedStatus, contents, musicEventId, title);
                                     System.out.println(data);
                                     mDatas.add(data);
                                 } catch (Exception e) {
